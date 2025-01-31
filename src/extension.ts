@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import {do_hover_provide} from "./core"
+import {do_hover_provide} from "./core";
 
 export function activate(context: vscode.ExtensionContext) {
     const provider = vscode.languages.registerCompletionItemProvider(
