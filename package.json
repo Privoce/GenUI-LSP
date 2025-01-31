@@ -1,0 +1,117 @@
+{
+  "name": "gen-ui-syn",
+  "displayName": "gen_ui_syn",
+  "description": "gen_ui framwork plugin",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configurationDefaults": {
+      "editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {
+            "scope": "entity.name.tag.template.gen|entity.name.tag.script.gen|entity.name.tag.style.gen|entity.name.tag.custom.gen",
+            "settings": {
+              "foreground": "#8DDB8C"
+            }
+          },
+          {
+            "scope": "entity.prop.name.binding.gen",
+            "settings": {
+              "foreground": "#cf6d17"
+            }
+          },
+          {
+            "scope": "entry.prop.binding.gen",
+            "settings": {
+              "foreground": "#F69D50"
+            }
+          },
+          {
+            "scope": "entity.prop.name.event.gen",
+            "settings": {
+              "foreground": "#936bb9"
+            }
+          },
+          {
+            "scope": "entry.prop.event.gen",
+            "settings": {
+              "foreground": "#DCBDFB"
+            }
+          },
+          {
+            "scope": "entity.prop.name.static.gen",
+            "settings": {
+              "foreground": "#6CB6FF"
+            }
+          },
+          {
+            "scope": "entry.prop.static.gen",
+            "settings": {
+              "foreground": "#96D0FF"
+            }
+          }
+        ]
+      }
+    },
+    "languages": [
+      {
+        "id": "gen",
+        "aliases": [
+          "gen",
+          "gen_ui"
+        ],
+        "extensions": [
+          ".gen"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gen",
+        "scopeName": "source.gen",
+        "path": "./syntaxes/gen.tmLanguage.json"
+      }
+    ],
+    "commands": [],
+    "keybindings": [],
+    "menus": {},
+    "snippets": [
+      {
+        "language": "gen",
+        "path": "./snippets/gen.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.96.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.2",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}

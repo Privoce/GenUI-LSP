@@ -1,0 +1,70 @@
+{
+    "GenUI View Component": {
+      "prefix": "view",
+      "body": [
+        "<view id=\"$1\">",
+        "    $2",
+        "</view>"
+      ],
+      "description": "GenUI View 组件"
+    },
+    "GenUI Button Component": {
+      "prefix": "button",
+      "body": [
+        "<button id=\"$1\">",
+        "    <label text=\"$2\"></label>",
+        "</button>"
+      ],
+      "description": "GenUI 按钮组件"
+    },
+    "GenUI Label Component": {
+      "prefix": "label",
+      "body": [
+        "<label text=\"$1\"></label>"
+      ],
+      "description": "GenUI 文本标签"
+    },
+    "GenUI TemplateAll Block": {
+      "prefix": "gen",
+      "body": [
+        "<template>",
+        "    <component name=\"$1\">",
+        "        $2",
+        "    </component>",
+        "</template>\n",
+        "<script>",
+        "</script>\n",
+        "<style>",
+        "</style>"
+      ],
+      "description": "GenUI Script 代码块"
+    },
+    "GenUI Template Block": {
+      "prefix": "template",
+      "body": [
+        "<template>",
+        "    <component name=\"$1\">",
+        "        $2",
+        "    </component>",
+        "</template>"
+      ],
+      "description": "GenUI Script 代码块"
+    },
+    "GenUI Script Block": {
+      "prefix": "script",
+      "body": [
+        "<script>",
+        "</script>"
+      ],
+      "description": "GenUI Script 代码块"
+    },
+    "GenUI Style Block": {
+      "prefix": "style",
+      "body": [
+        "<style>",
+        "</style>"
+      ],
+      "description": "GenUI 样式块"
+    }
+  }
+  

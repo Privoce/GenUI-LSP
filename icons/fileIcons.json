@@ -1,0 +1,14 @@
+{
+    "iconDefinitions": {
+      "genIcon": {
+        "iconPath": "./icons/genui.png"
+      }
+    },
+    "fileExtensions": {
+      "gen": "genIcon"
+    },
+    "languageIds": {
+      "gen": "genIcon"
+    }
+  }
+  
