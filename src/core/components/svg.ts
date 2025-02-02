@@ -1,3 +1,5 @@
+import { Prop, Event } from "./types";
+
 const DOC = `
 # \`svg\`
 
@@ -57,3 +59,163 @@ Make sure the icon address exists before use. Use the \`dep\` built-in function 
 
 export const SVG = "svg";
 export const MAP_ITEM_SVG: [string, string] = [SVG, DOC];
+export const SVG_PROPS: Prop[] = [
+  {
+    name: "theme",
+    type: "Themes",
+    description: "Theme",
+  },
+  {
+    name: "brightness",
+    type: "F32",
+    description: "Brightness",
+  },
+  {
+    name: "curve",
+    type: "F32",
+    description: "Curve",
+  },
+  {
+    name: "linearize",
+    type: "F32",
+    description: "Linearize",
+  },
+  {
+    name: "src",
+    type: "LiveDependency",
+    description: "SVG resource path",
+  },
+  {
+    name: "scale",
+    type: "F64",
+    description: "Scale",
+  },
+  {
+    name: "color",
+    type: "MakepadColor",
+    description: "Color",
+  },
+  {
+    name: "draw_depth",
+    type: "F32",
+    description: "Draw depth",
+  },
+  {
+    name: "stroke_hover_color",
+    type: "MakepadColor",
+    description: "Stroke color when hovering",
+  },
+  {
+    name: "stroke_focus_color",
+    type: "MakepadColor",
+    description: "Stroke color when focused",
+  },
+  {
+    name: "cursor",
+    type: "MouseCursor",
+    description: "Mouse pointer style",
+  },
+  {
+    name: "grab_key_focus",
+    type: "bool",
+    description: "Capture keyboard focus",
+  },
+  {
+    name: "visible",
+    type: "bool",
+    description: "Visible",
+  },
+  {
+    name: "animation_key",
+    type: "bool",
+    description: "Animation key",
+  },
+  {
+    name: "abs_pos",
+    type: "DVec2",
+    description: "Absolute position",
+  },
+  {
+    name: "margin",
+    type: "Margin",
+    description: "Margin",
+  },
+  {
+    name: "width",
+    type: "Size",
+    description: "Width",
+  },
+  {
+    name: "height",
+    type: "Size",
+    description: "Height",
+  },
+  {
+    name: "scroll",
+    type: "DVec2",
+    description: "Scroll offset",
+  },
+  {
+    name: "clip_x",
+    type: "bool",
+    description: "Clip X axis",
+  },
+  {
+    name: "clip_y",
+    type: "bool",
+    description: "Clip Y axis",
+  },
+  {
+    name: "padding",
+    type: "Padding",
+    description: "Padding",
+  },
+  {
+    name: "align",
+    type: "Align",
+    description: "Alignment",
+  },
+  {
+    name: "flow",
+    type: "Flow",
+    description: "Flow mode",
+  },
+  {
+    name: "spacing",
+    type: "F64",
+    description: "Spacing",
+  },
+  {
+    name: "event_key",
+    type: "bool",
+    description: "Event key",
+  },
+];
+
+export const SVG_EVENTS: Event[] = [
+  {
+    name: "clicked",
+    params: "GSvgClickedParam",
+    description: "Click event",
+  },
+  {
+    name: "hover_in",
+    params: "GSvgHoverParam",
+    description: "Mouse hover event",
+  },
+  {
+    name: "hover_out",
+    params: "GSvgHoverParam",
+    description: "Mouse out event",
+  },
+  {
+    name: "focus",
+    params: "GSvgFocusParam",
+    description: "Focus event",
+  },
+  {
+    name: "focus_lost",
+    params: "GSvgFocusLostParam",
+    description: "Lost focus event",
+  },
+];

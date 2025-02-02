@@ -1,70 +1,107 @@
 {
-    "GenUI View Component": {
-      "prefix": "view",
-      "body": [
-        "<view id=\"$1\">",
-        "    $2",
-        "</view>"
-      ],
-      "description": "GenUI View 组件"
-    },
-    "GenUI Button Component": {
-      "prefix": "button",
-      "body": [
-        "<button id=\"$1\">",
-        "    <label text=\"$2\"></label>",
-        "</button>"
-      ],
-      "description": "GenUI 按钮组件"
-    },
-    "GenUI Label Component": {
-      "prefix": "label",
-      "body": [
-        "<label text=\"$1\"></label>"
-      ],
-      "description": "GenUI 文本标签"
-    },
-    "GenUI TemplateAll Block": {
-      "prefix": "gen",
-      "body": [
-        "<template>",
-        "    <component name=\"$1\">",
-        "        $2",
-        "    </component>",
-        "</template>\n",
-        "<script>",
-        "</script>\n",
-        "<style>",
-        "</style>"
-      ],
-      "description": "GenUI Script 代码块"
-    },
-    "GenUI Template Block": {
-      "prefix": "template",
-      "body": [
-        "<template>",
-        "    <component name=\"$1\">",
-        "        $2",
-        "    </component>",
-        "</template>"
-      ],
-      "description": "GenUI Script 代码块"
-    },
-    "GenUI Script Block": {
-      "prefix": "script",
-      "body": [
-        "<script>",
-        "</script>"
-      ],
-      "description": "GenUI Script 代码块"
-    },
-    "GenUI Style Block": {
-      "prefix": "style",
-      "body": [
-        "<style>",
-        "</style>"
-      ],
-      "description": "GenUI 样式块"
-    }
+  "GenUI Scrollbars Component": {
+    "prefix": "scroll_bars",
+    "body": ["<scroll_bars as_prop=\"scroll_bars\"></scroll_bars>"],
+    "description": "GenUI `<scroll_bars>`"
+  },
+  "GenUI Link Component": {
+    "prefix": "link",
+    "body": ["<link text=\"'$1'\" href=\"'$2'\"></link>"],
+    "description": "GenUI `<link>`"
+  },
+  "GenUI Input Component": {
+    "prefix": "input",
+    "body": ["<input text=\"'$1'\" placeholder=\"'$2'\"></link>"],
+    "description": "GenUI `<input>`"
+  },
+  "GenUI Svg Component": {
+    "prefix": "svg",
+    "body": ["<svg src=\"dep('$1')\"></svg>"],
+    "description": "GenUI `<svg>`"
+  },
+  "GenUI Image Component": {
+    "prefix": "image",
+    "body": ["<image src=\"dep('$1')\"></image>"],
+    "description": "GenUI `<image>`"
+  },
+  "GenUI Divider Component": {
+    "prefix": "divider",
+    "body": ["<divider></divider>"],
+    "description": "GenUI `<divider>`"
+  },
+  "GenUI RadioGroup Component": {
+    "prefix": "radio_group",
+    "body": ["<radio_group selected=\"$1\"></radio_group>"],
+    "description": "GenUI `<radio_group>`"
+  },
+  "GenUI Radio Component": {
+    "prefix": "radio",
+    "body": ["<radio text=\"'$1'\"></radio>"],
+    "description": "GenUI `<radio>`"
+  },
+  "GenUI CheckboxGroup Component": {
+    "prefix": "checkbox_group",
+    "body": ["<checkbox_group></checkbox_group>"],
+    "description": "GenUI `<checkbox_group>`"
+  },
+  "GenUI Checkbox Component": {
+    "prefix": "checkbox",
+    "body": ["<checkbox selected=\"false\" text=\"'$1'\"></checkbox>"],
+    "description": "GenUI `<checkbox>`"
+  },
+  "GenUI View Component": {
+    "prefix": "view",
+    "body": ["<view id=\"$1\">", "    $2", "</view>"],
+    "description": "GenUI `<view>`"
+  },
+  "GenUI Button Component": {
+    "prefix": "button",
+    "body": [
+      "<button id=\"$1\">",
+      "    <label as_prop=\"slot\" text=\"$2\"></label>",
+      "</button>"
+    ],
+    "description": "GenUI `<button>`"
+  },
+  "GenUI Label Component": {
+    "prefix": "label",
+    "body": ["<label text=\"$1\"></label>"],
+    "description": "GenUI `<label>`"
+  },
+  "GenUI TemplateAll Block": {
+    "prefix": "gen",
+    "body": [
+      "<template>",
+      "    <component name=\"$1\">",
+      "        $2",
+      "    </component>",
+      "</template>\n",
+      "<script>",
+      "</script>\n",
+      "<style>",
+      "</style>"
+    ],
+    "description": "`GenUI All`: a complete GenUI block that includes the template, script, and style parts."
+  },
+  "GenUI Template Block": {
+    "prefix": "template",
+    "body": [
+      "<template>",
+      "    <component name=\"$1\">",
+      "        $2",
+      "    </component>",
+      "</template>"
+    ],
+    "description": "`GenUI <template>`: Component template refers to the part of the file with the suffix .gen that is wrapped by the <template> tag and used to describe the page structure."
+  },
+  "GenUI Script Block": {
+    "prefix": "script",
+    "body": ["<script>", "</script>"],
+    "description": "`GenUI <script>`: The script part of GenUI uses the Rust language and is wrapped in the <script> tag in the .gen file."
+  },
+  "GenUI Style Block": {
+    "prefix": "style",
+    "body": ["<style>", "</styl>"],
+    "description": "`GenUI <style>`: Component Prop (style), wrapped by <style></style> tags in the .gen file, are used to write component Prop."
   }
-  
+}

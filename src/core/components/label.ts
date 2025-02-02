@@ -1,3 +1,5 @@
+import { Prop, Event } from "./types";
+
 const DOC = `
 # \`label\`
 
@@ -60,3 +62,128 @@ Use the built-in \`dep\` function
 
 export const LABEL = "label";
 export const MAP_ITEM_LABEL: [string, string] = [LABEL, DOC];
+
+export const LABEL_PROPS: Prop[] = [
+  {
+    name: "theme",
+    type: "Themes",
+    description: "Theme",
+  },
+  {
+    name: "color",
+    type: "MakepadColor",
+    description: "Color",
+  },
+  {
+    name: "stroke_hover_color",
+    type: "MakepadColor",
+    description: "Font color when hovering",
+  },
+  {
+    name: "stroke_focus_color",
+    type: "MakepadColor",
+    description: "Font color when getting focus",
+  },
+  {
+    name: "font_size",
+    type: "F64",
+    description: "Font size",
+  },
+  {
+    name: "cursor",
+    type: "MouseCursor",
+    description: "Mouse cursor",
+  },
+  {
+    name: "line_spacing",
+    type: "F64",
+    description: "Line spacing",
+  },
+  {
+    name: "height_factor",
+    type: "F64",
+    description: "Height factor",
+  },
+  {
+    name: "wrap",
+    type: "TextWrap",
+    description: "Text wrapping method",
+  },
+  {
+    name: "font_family",
+    type: "LiveDependency",
+    description: "Font type",
+  },
+  {
+    name: "visible",
+    type: "bool",
+    description: "Visible or not",
+  },
+  {
+    name: "height",
+    type: "Size",
+    description: "Height",
+  },
+  {
+    name: "width",
+    type: "Size",
+    description: "Width",
+  },
+  {
+    name: "margin",
+    type: "Margin",
+    description: "Margin",
+  },
+  {
+    name: "padding",
+    type: "Padding",
+    description: "Padding",
+  },
+  {
+    name: "align",
+    type: "Align",
+    description: "Alignment",
+  },
+  {
+    name: "text",
+    type: "String",
+    description: "Text content",
+  },
+  {
+    name: "animation_key",
+    type: "bool",
+    description: "Whether to allow animation",
+  },
+  {
+    name: "event_key",
+    type: "bool",
+    description: "Whether to allow events",
+  },
+  {
+    name: "grabKey_focus",
+    type: "bool",
+    description: "Whether to capture key focus",
+  },
+];
+export const LABEL_EVENTS: Event[] = [
+  {
+    name: "hover_in",
+    params: "GLabelHoverParam",
+    description: "Mouse enter event",
+  },
+  {
+    name: "hover_out",
+    params: "GLabelHoverParam",
+    description: "Mouse leave event",
+  },
+  {
+    name: "focus",
+    params: "GLabelFocusParam",
+    description: "Get focus event",
+  },
+  {
+    name: "focus_lost",
+    params: "GLabelFocusLostParam",
+    description: "Focus lost event",
+  },
+];

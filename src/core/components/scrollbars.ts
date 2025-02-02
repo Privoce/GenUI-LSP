@@ -1,3 +1,5 @@
+import { Prop } from "./types";
+
 const DOC = `
 # \`scroll_bars\`
 
@@ -26,3 +28,15 @@ None
 
 export const SCROLLBARS = "scroll_bars";
 export const MAP_ITEM_SCROLLBARS: [string, string] = [SCROLLBARS, DOC];
+export const SCROLLBARS_PROPS: Prop[] = [
+  {
+    name: "scroll_x",
+    type: "bool",
+    description: "Whether to display the x-axis scroll bar",
+  },
+  {
+    name: "scroll_y",
+    type: "bool",
+    description: "Whether to display the y-axis scroll bar",
+  },
+];

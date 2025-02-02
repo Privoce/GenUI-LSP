@@ -1,0 +1,27 @@
+| Name                          | Description                         | Type             |
+| ----------------------------- | ----------------------------------- | ---------------- |
+| \`theme\`                       | Theme                               | \`Themes\`         |
+| \`color\`                       | Color                               | \`MakepadColor\`   |
+| \`text_hover_color\`            | Text hover color                    | \`MakepadColor\`   |
+| \`text_focus_color\`            | Text focus color                    | \`MakepadColor\`   |
+| \`font_size\`                   | Font size                           | \`F64\`            |
+
+请帮我转为:
+{
+    name: ,
+    type: ,
+    description
+}
+
+| Name        | Description       | Parameters              |
+| ----------- | ----------------- | ----------------------- |
+| \`clicked\`   | Click event       | \`GCheckboxClickedParam\` |
+| \`hover_in\`  | Mouse hover event | \`GCheckboxHoverParam\`   |
+| \`hover_out\` | Mouse out event   | \`GCheckboxHoverParam\`   |
+
+请帮我转为:
+{
+    name: ,
+    params: ,
+    description
+}

@@ -1,3 +1,5 @@
+import { Prop } from "./types";
+
 const DOC = `
 # \`divider\`
 
@@ -74,3 +76,190 @@ None
 
 export const DIVIDER = "divider";
 export const MAP_ITEM_DIVIDER: [string, string] = [DIVIDER, DOC];
+export const DIVIDER_PROPS: Prop[] = [
+  {
+    name: "theme",
+    type: "Themes",
+    description: "Theme",
+  },
+  {
+    name: "background_color",
+    type: "MakepadColor",
+    description: "Background color",
+  },
+  {
+    name: "hover_color",
+    type: "MakepadColor",
+    description: "Hover color",
+  },
+  {
+    name: "focus_color",
+    type: "MakepadColor",
+    description: "Focus color",
+  },
+  {
+    name: "border_color",
+    type: "MakepadColor",
+    description: "Border color",
+  },
+  {
+    name: "border_width",
+    type: "F32",
+    description: "Border width",
+  },
+  {
+    name: "border_radius",
+    type: "F32",
+    description: "Border radius",
+  },
+  {
+    name: "visible",
+    type: "bool",
+    description: "Visible or not",
+  },
+  {
+    name: "background_visible",
+    type: "bool",
+    description: "Background visible or not",
+  },
+  {
+    name: "shadow_color",
+    type: "MakepadColor",
+    description: "Shadow color",
+  },
+  {
+    name: "spread_radius",
+    type: "F32",
+    description: "Shadow spread radius",
+  },
+  {
+    name: "blur_radius",
+    type: "F32",
+    description: "Shadow blur radius",
+  },
+  {
+    name: "shadow_offset",
+    type: "Vec2",
+    description: "Shadow offset",
+  },
+  {
+    name: "cursor",
+    type: "MouseCursor",
+    description: "Mouse pointer style",
+  },
+  {
+    name: "animation_key",
+    type: "bool",
+    description: "Animation key",
+  },
+  {
+    name: "grab_key_focus",
+    type: "bool",
+    description: "Capture keyboard focus",
+  },
+  {
+    name: "block_signal_event",
+    type: "bool",
+    description: "Block signal event",
+  },
+  {
+    name: "abs_pos",
+    type: "DVec2",
+    description: "Absolute position",
+  },
+  {
+    name: "margin",
+    type: "Margin",
+    description: "Margin",
+  },
+  {
+    name: "width",
+    type: "Size",
+    description: "Width",
+  },
+  {
+    name: "height",
+    type: "Size",
+    description: "Height",
+  },
+  {
+    name: "scroll",
+    type: "DVec2",
+    description: "Scroll offset",
+  },
+  {
+    name: "clip_x",
+    type: "bool",
+    description: "Clip X axis or not",
+  },
+  {
+    name: "clip_y",
+    type: "bool",
+    description: "Clip Y axis or not",
+  },
+  {
+    name: "padding",
+    type: "Padding",
+    description: "Padding",
+  },
+  {
+    name: "align",
+    type: "Align",
+    description: "Alignment",
+  },
+  {
+    name: "flow",
+    type: "Flow",
+    description: "Flow",
+  },
+  {
+    name: "spacing",
+    type: "F64",
+    description: "Spacing",
+  },
+  {
+    name: "event_order",
+    type: "EventOrder",
+    description: "Event order",
+  },
+  {
+    name: "dpi_factor",
+    type: "F64",
+    description: "DPI scaling factor",
+  },
+  {
+    name: "optimize",
+    type: "ViewOptimize",
+    description: "View optimization options",
+  },
+  {
+    name: "capture_overload",
+    type: "bool",
+    description: "Capture overload",
+  },
+  {
+    name: "event_key",
+    type: "bool",
+    description: "Event key",
+  },
+  {
+    name: "block_child_events",
+    type: "bool",
+    description: "Block child event delivery",
+  },
+  {
+    name: "deref_widget",
+    type: "ViewProps",
+    description: "Reference view properties",
+  },
+  {
+    name: "stroke_width",
+    type: "F32",
+    description: "Stroke width",
+  },
+  {
+    name: "direction",
+    type: "Direction",
+    description: "Divider direction",
+  },
+];

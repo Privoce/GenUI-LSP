@@ -1,3 +1,5 @@
+import { Prop, Event } from "./types";
+
 const DOC = `
 # \`image\`
 
@@ -54,3 +56,132 @@ Please make sure the image address exists before use. Use the \`dep\` built-in f
 
 export const IMAGE = "image";
 export const MAP_ITEM_IMAGE: [string, string] = [IMAGE, DOC];
+export const IMAGE_PROPS: Prop[] = [
+  {
+    name: "visible",
+    type: "bool",
+    description: "Visible or not",
+  },
+  {
+    name: "grab_key_focus",
+    type: "bool",
+    description: "Capture keyboard focus",
+  },
+  {
+    name: "opacity",
+    type: "F32",
+    description: "Opacity",
+  },
+  {
+    name: "cursor",
+    type: "MouseCursor",
+    description: "Mouse pointer style",
+  },
+  {
+    name: "scale",
+    type: "F64",
+    description: "Scale ratio",
+  },
+  {
+    name: "fit",
+    type: "ImageFit",
+    description: "Image fit method",
+  },
+  {
+    name: "src",
+    type: "LiveDependency",
+    description: "Image resource path",
+  },
+  {
+    name: "min_width",
+    type: "i64",
+    description: "Minimum width",
+  },
+  {
+    name: "min_height",
+    type: "i64",
+    description: "Minimum height",
+  },
+  {
+    name: "rotation",
+    type: "F32",
+    description: "Rotation angle",
+  },
+  {
+    name: "abs_pos",
+    type: "DVec2",
+    description: "Absolute position",
+  },
+  {
+    name: "margin",
+    type: "Margin",
+    description: "Margin",
+  },
+  {
+    name: "width",
+    type: "Size",
+    description: "Width",
+  },
+  {
+    name: "height",
+    type: "Size",
+    description: "Height",
+  },
+  {
+    name: "scroll",
+    type: "DVec2",
+    description: "Scroll offset",
+  },
+  {
+    name: "clip_x",
+    type: "bool",
+    description: "Clip X axis or not",
+  },
+  {
+    name: "clip_y",
+    type: "bool",
+    description: "Clip Y axis or not",
+  },
+  {
+    name: "padding",
+    type: "Padding",
+    description: "Padding",
+  },
+  {
+    name: "align",
+    type: "Align",
+    description: "Alignment",
+  },
+  {
+    name: "flow",
+    type: "Flow",
+    description: "Flow mode",
+  },
+  {
+    name: "spacing",
+    type: "F64",
+    description: "Spacing",
+  },
+  {
+    name: "event_key",
+    type: "bool",
+    description: "Event key",
+  },
+];
+export const IMAGE_EVENTS: Event[] = [
+  {
+    name: "hover_in",
+    params: "GImageHoverParam",
+    description: "Mouse hover event",
+  },
+  {
+    name: "hover_out",
+    params: "GImageHoverParam",
+    description: "Mouse over event",
+  },
+  {
+    name: "clicked",
+    params: "GImageClickedParam",
+    description: "Click event",
+  },
+];

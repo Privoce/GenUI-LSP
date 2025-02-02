@@ -1,3 +1,4 @@
+import { Prop, Event } from "./types";
 const DOC = `
 # \`button\`
 
@@ -71,3 +72,173 @@ A customizable button designed for interactive UI elements. It supports hover, f
 
 export const BUTTON = "button";
 export const MAP_ITEM_BUTTON: [string, string] = [BUTTON, DOC];
+export const BUTTON_PROPS: Prop[] = [
+  {
+    name: "theme",
+    type: "Themes",
+    description: "Theme",
+  },
+  {
+    name: "background_color",
+    type: "MakepadColor",
+    description: "Background color",
+  },
+  {
+    name: "background_visible",
+    type: "bool",
+    description: "Is the background visible",
+  },
+  {
+    name: "hover_color",
+    type: "MakepadColor",
+    description: "Hover color",
+  },
+  {
+    name: "focus_color",
+    type: "MakepadColor",
+    description: "Focus color",
+  },
+  {
+    name: "shadow_color",
+    type: "MakepadColor",
+    description: "Shadow color",
+  },
+  {
+    name: "spread_radius",
+    type: "F32",
+    description: "Shadow spread radius",
+  },
+  {
+    name: "blur_radius",
+    type: "F32",
+    description: "Shadow blur radius",
+  },
+  {
+    name: "shadow_offset",
+    type: "Vec2",
+    description: "Shadow offset",
+  },
+  {
+    name: "border_color",
+    type: "MakepadColor",
+    description: "Border color",
+  },
+  {
+    name: "border_width",
+    type: "F32",
+    description: "Border width",
+  },
+  {
+    name: "border_radius",
+    type: "F32",
+    description: "Border radius",
+  },
+  {
+    name: "cursor",
+    type: "MouseCursor",
+    description: "Mouse pointer",
+  },
+  {
+    name: "visible",
+    type: "bool",
+    description: "Visible or not",
+  },
+  {
+    name: "grab_key_focus",
+    type: "bool",
+    description: "Grab keyboard focus or not",
+  },
+  {
+    name: "animation_key",
+    type: "bool",
+    description: "Animation key",
+  },
+  {
+    name: "event_key",
+    type: "bool",
+    description: "Event key",
+  },
+  {
+    name: "abs_pos",
+    type: "DVec2",
+    description: "Absolute position",
+  },
+  {
+    name: "margin",
+    type: "Margin",
+    description: "Margin",
+  },
+  {
+    name: "width",
+    type: "Size",
+    description: "Width",
+  },
+  {
+    name: "height",
+    type: "Size",
+    description: "Height",
+  },
+  {
+    name: "scroll",
+    type: "DVec2",
+    description: "Scroll offset",
+  },
+  {
+    name: "clip_x",
+    type: "bool",
+    description: "Clip X axis or not",
+  },
+  {
+    name: "clip_y",
+    type: "bool",
+    description: "Clip Y axis or not",
+  },
+  {
+    name: "padding",
+    type: "Padding",
+    description: "Padding",
+  },
+  {
+    name: "align",
+    type: "Align",
+    description: "Alignment",
+  },
+  {
+    name: "flow",
+    type: "Flow",
+    description: "Flow",
+  },
+  {
+    name: "spacing",
+    type: "F64",
+    description: "Spacing",
+  },
+];
+
+export const BUTTON_EVENTS: Event[] = [
+  {
+    name: "hover_in",
+    params: "GButtonHoverParam",
+    description: "Mouse enter event",
+  },
+  {
+    name: "hover_out",
+    params: "GButtonHoverParam",
+    description: "Mouse leave event",
+  },
+  {
+    name: "clicked",
+    params: "GButtonClickedParam",
+    description: "Click event",
+  },
+  {
+    name: "focus",
+    params: "GButtonFocusParam",
+    description: "Get focus event",
+  },
+  {
+    name: "focus_lost",
+    params: "GButtonFocusLostParam",
+    description: "Lose focus event",
+  },
+];
