@@ -1,7 +1,7 @@
 {
     "iconDefinitions": {
       "genIcon": {
-        "iconPath": "./icons/genui.png"
+        "iconPath": "./icons/genui_32.png"
       }
     },
     "fileExtensions": {
