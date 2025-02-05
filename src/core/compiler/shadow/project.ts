@@ -133,13 +133,16 @@ export class GenUIWorkspace {
     let cargo_toml_content = readFileSync(cargo_toml_path, "utf-8");
     let cargo_toml_obj = require("toml").parse(cargo_toml_content);
     cargo_toml_obj.package.name = "tmp";
-    cargo_toml_obj.dependencies.push(...dependencies);
+    cargo_toml_obj.dependencies = Object.assign(
+      cargo_toml_obj.dependencies,
+      dependencies
+    );
     let cargo_toml_str = toml_strify(cargo_toml_obj);
     let shadow_cargo_toml_path = path.join(this.shadow_path!, "Cargo.toml");
     writeFileSync(shadow_cargo_toml_path, cargo_toml_str);
   }
 
-  private async sync_gen_ui_toml(): Promise<string[]> {
+  private async sync_gen_ui_toml(): Promise<Object> {
     let gen_ui_toml_path = path.join(this.source_path!, "gen_ui.toml");
     if (!existsSync(gen_ui_toml_path)) {
       return [];
@@ -167,7 +170,6 @@ export class GenUIWorkspace {
       if (token_obj.plugin.repo.git !== undefined) {
         await download_from_github(
           this.shadow_path!,
-          token_obj.plugin.repo.git,
           key
         );
       } else {
@@ -182,12 +184,6 @@ export class GenUIWorkspace {
     await remove_tmp(this.shadow_path!);
 
     // 处理依赖
-    let result: string[] = [];
-    let deps = gen_ui_toml_obj[compile_target].dependencies;
-    for (let key in deps) {
-      result.push(deps[key]);
-    }
-
-    return result;
+    return gen_ui_toml_obj[compile_target].dependencies;
   }
 }

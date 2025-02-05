@@ -48,7 +48,9 @@ export function ext_rust_script_str(document: string): string | null {
 export function copy_file_local(to_path: string, from_path: string) {
   try {
     // fs-extra 的 copySync 方法可以递归复制整个目录
-    require("fs-extra").copySync(from_path, to_path);
+    // 获得父目录
+    let from_father = require("path").dirname(from_path);
+    require("fs-extra").copySync(from_father, to_path);
     return true;
   } catch (err) {
     console.error("复制文件时发生错误:", err);
@@ -65,10 +67,8 @@ export async function remove_tmp(path: string) {
 }
 
 /// 调用git从github下载文件
-
 export async function download_from_github(
   path: string,
-  url: string,
   plugin: string
 ): Promise<void> {
   try {
@@ -97,14 +97,17 @@ export async function download_from_github(
       "info",
       "sparse-checkout"
     );
-    await require("fs-extra").writeFile(sparse_checkout_path, url);
+    await require("fs-extra").writeFile(
+      sparse_checkout_path,
+      `projects/${plugin}/*`
+    );
 
     // 6. 拉取代码
     await exec("git pull origin main", { cwd: tmp_path });
 
     // 7. 复制文件
     const to_src = require("path").join(path, "src");
-    const from_path = require("path").join(tmp_path, plugin);
+    const from_path = require("path").join(tmp_path, "projects");
     await require("fs-extra").copy(from_path, to_src);
     console.log("插件下载完成");
   } catch (error) {

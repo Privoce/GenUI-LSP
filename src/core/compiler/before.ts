@@ -21,7 +21,7 @@ export function get_compile_source(): string{
         const ract_content = fs.readFileSync(ract_file, 'utf-8');
         // 解析`.ract`文件为Ract类型
         const ract: Ract = toml.parse(ract_content);
-        if (ract.target != "gen_ui"){
+        if (ract.target !== "gen_ui"){
             throw new Error(`不支持的编译目标, 请检查.ract文件, 目前只支持gen_ui, 您当前的编译目标是: ${ract.target}`);
         }
         // 当前Ract的编译目标就是第一个子项目
