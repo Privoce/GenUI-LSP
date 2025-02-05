@@ -32,12 +32,7 @@ export class GenScriptContentProvider implements vscode.TextDocumentContentProvi
     }
 }
 
-export function extractRustScript(document: vscode.TextDocument): string | null {
-    const text = document.getText();
-    const scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
-    const match = scriptRegex.exec(text);
-    return match ? match[1].trim() : null;
-}
+
 
 export function mapDiagnostics(scriptUri: vscode.Uri, genUri: vscode.Uri, diagnostics: vscode.Diagnostic[]): vscode.Diagnostic[] {
     const scriptDocument = vscode.workspace.textDocuments.find(doc => doc.uri.toString() === scriptUri.toString());
