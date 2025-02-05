@@ -8,3 +8,8 @@ export type Member = {
     source: string,
     target: string
 }
+
+export type GenUIToml = {
+    dependencies: string[],
+    plugins: string[]
+}

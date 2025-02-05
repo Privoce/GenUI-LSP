@@ -88,7 +88,7 @@ export class GenUIFileSystemProvider implements vscode.FileSystemProvider {
   updateVirtualFiles(genFiles: { path: string; content: string }[]) {
     // 生成 lib.rs
     const libRsContent = this.generateLibRs(genFiles);
-    const libRsUri = vscode.Uri.parse(`genui://${this.source_path}/src/lib.rs`);
+    const libRsUri = vscode.Uri.parse(`file://${this.source_path}/src/lib.rs`);
     this.writeFile(libRsUri, new TextEncoder().encode(libRsContent), {
       create: true,
       overwrite: true,
@@ -100,7 +100,7 @@ export class GenUIFileSystemProvider implements vscode.FileSystemProvider {
       if (scriptContent) {
         let path = fmt_path(this.source_path, genFile.path);
         const rsUri = vscode.Uri.parse(
-          `genui://${path}`
+          `file://${path}`
         );
         this.writeFile(rsUri, new TextEncoder().encode(scriptContent), {
           create: true,
