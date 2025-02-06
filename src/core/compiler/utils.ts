@@ -18,8 +18,7 @@ export function fmt_path(
   // 对path进行trim去掉前面和source_path相同的部分
   const trim_path = path.replace(prefix, "");
   if (path.endsWith(".gen")) {
-    path = path.replace(".gen", ".rs");
-    return require("path").join(source_path, "tmp", "src", trim_path);
+    return require("path").join(source_path, "tmp", "src", trim_path.replace(".gen", ".rs"));
   } else {
     return require("path").join(source_path, "tmp", trim_path);
   }

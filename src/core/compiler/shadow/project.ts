@@ -40,6 +40,7 @@ export class GenUIWorkspace {
   public workspace_path: string;
   /// 源项目路径
   public source_path?: string;
+  public lib_mods: string[] = [];
   public is_compile: boolean = false;
 
   /// 构造函数
@@ -78,6 +79,13 @@ export class GenUIWorkspace {
   /// 执行
   public run() {
     this.init_shadow_project();
+    workspace.findFiles(`${this.source_name()}/**/*.gen`).then((paths) => {
+      paths.forEach((uri) => {
+        this.push_mod(uri.path);
+      });
+
+      this.lib_rs();
+    });
   }
 
   /// 初始化构建映射的项目
@@ -146,8 +154,14 @@ export class GenUIWorkspace {
     // 递归读取源项目下所有后缀为.gen的文件和.rs文件
     let gen_file_paths = workspace.findFiles(`${this.source_name()}/**/*.gen`);
     let rs_file_paths = workspace.findFiles(`${this.source_name()}/**/*.rs`);
+    let gen_file_paths_str: string[] = [];
     // 同步所有.gen文件
-    console.log(gen_file_paths);
+    gen_file_paths.then((paths) => {
+      paths.forEach((uri) => {
+        this.push_mod(uri.path);
+        this.sync_gen_file(uri);
+      });
+    });
     // 同步所有.rs文件
     rs_file_paths.then((paths) => {
       paths.forEach((uri) => {
@@ -155,14 +169,65 @@ export class GenUIWorkspace {
       });
     });
   }
+
+  private push_mod(path: string) {
+    path = path.replace(this.source_path!, "");
+    let start = path.indexOf("/");
+    let end = path.indexOf("/", start + 1);
+    let mod_path = path.slice(start + 1, end);
+    if (!this.lib_mods.includes(mod_path)) {
+      this.lib_mods.push(mod_path);
+    }
+  }
+
   /// 同步单个.gen文件
-  private async sync_gen_file() {}
+  /// 对于.gen文件，我们需要将文件中`<script></script>`包裹的rust代码提取出来并写入到shadow项目中
+  private async sync_gen_file(uri: Uri) {
+    let shadow_path = fmt_path(
+      this.workspace_path,
+      this.source_name(),
+      uri.path
+    );
+    let script_content = readFileSync(uri.path);
+    let script_regex = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
+    let match = script_regex.exec(script_content.toString());
+    let rust_content = match ? match[1].trim() : null;
+    if (!rust_content) {
+      return;
+    }
+    workspace.fs.writeFile(Uri.file(shadow_path), Buffer.from(rust_content));
+  }
 
   /// 同步单个.rs文件
-  /// 对于.rs文件，需要将其内容提取出来并写入到shadow项目中（path无需修改）
+  /// 对于.rs文件，需要将其内容提取出来并写入到shadow项目中
   private sync_rs_file(path: string) {
-    let shadow_path = fmt_path(this.workspace_path, this.source_name(), path);
-    workspace.fs.copy(Uri.file(path), Uri.file(shadow_path), {overwrite: true});
+    // 如果是src/lib.rs文件，需要特殊处理
+    let lib_path = require("path").join(this.source_path!, "src", "lib.rs");
+    if (path !== lib_path) {
+      let shadow_path = fmt_path(this.workspace_path, this.source_name(), path);
+      workspace.fs.copy(Uri.file(path), Uri.file(shadow_path), {
+        overwrite: true,
+      });
+    }
+  }
+
+  /// /Users/shengyifei/projects/gen_ui/lsp_plugin_vscode/test_gen_plugin/hello/views/home.gen
+  /// /Users/shengyifei/projects/gen_ui/lsp_plugin_vscode/test_gen_plugin/hello/views/mod.gen
+  /// 对于这些文件，去除prefix后， /views/home.gen和/views/mod.gen，然后获取第一个`/ /`之间的内容即可
+  private lib_rs() {
+    console.log(this.lib_mods);
+    let path = require("path").join(this.source_path!, "src", "lib.rs");
+    let lib_path = require("path").join(this.shadow_path, "src", "lib.rs");
+    // 如果path存在，那么获取path的内容
+    let content = "";
+    if (existsSync(path)) {
+      content = readFileSync(path, "utf-8");
+    }
+
+    this.lib_mods.forEach((mod) => {
+      content += `pub mod ${mod};\n`;
+    });
+    workspace.fs.writeFile(Uri.file(lib_path), Buffer.from(content));
   }
 
   public source_name(): string {

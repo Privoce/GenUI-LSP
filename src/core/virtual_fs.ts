@@ -111,9 +111,7 @@
 //   }
 // }
 
-// /// /Users/shengyifei/projects/gen_ui/lsp_plugin_vscode/test_gen_plugin/hello/views/home.gen
-// /// /Users/shengyifei/projects/gen_ui/lsp_plugin_vscode/test_gen_plugin/hello/views/mod.gen
-// /// 对于这些文件，去除prefix后， /views/home.gen和/views/mod.gen，然后获取第一个`/ /`之间的内容即可
+
 // export function lib_root(
 //   prefix: string,
 //   genFiles: { path: string; content: string }[]
