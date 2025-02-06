@@ -2,14 +2,11 @@ import * as vscode from "vscode";
 import { do_hover_provide } from "./core";
 import { register_complete_providers } from "./core/complete/template";
 import { register_gen_complete_provider } from "./core/complete/script";
-import { mapDiagnostics } from "./core/virtural";
-import { get_compile_source } from "./core/compiler/before";
-import { reback_path } from "./core/compiler/utils";
-import { GenUIFileSystemProvider } from "./core/virtual_fs";
+// import { get_compile_source } from "./core/compiler/before";
 import { GenUIWorkspace } from "./core/compiler/shadow/project";
 
 export function activate(context: vscode.ExtensionContext) {
-  const compile_source = get_compile_source();
+  // const compile_source = get_compile_source();
   // 注册自定义智能提示提供程序
   const complete_providers = register_complete_providers();
   const hover_provider = vscode.languages.registerHoverProvider("gen", {

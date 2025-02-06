@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, writeSync } from "fs";
-import { TextDocument } from "vscode";
+import { TextDocument, Uri, workspace } from "vscode";
 import { promisify } from "util";
 import { exec as execCallback } from "child_process";
 
@@ -7,17 +7,22 @@ const exec = promisify(execCallback);
 /// 格式化路径，如果路径是以.gen结尾，则需要：
 /// 1. 将路径中的.gen替换为.rs、
 /// 2. 获取文件的项目路径然后与当前文件路径做分割，分割后增加src/，然后再拼接
-/// 例如：/Users/shengyifei/projects/gen_ui/test/views/mod.rs 需要转为 /Users/shengyifei/projects/gen_ui/test/src/views/mod.rs
+/// 例如：/Users/shengyifei/projects/gen_ui/test/views/mod.gen 需要转为 /Users/shengyifei/projects/gen_ui/tmp/src/views/mod.rs
 /// 对于非.gen结尾的文件路径不需要处理
-export function fmt_path(source_path: string, path: string): string {
+export function fmt_path(
+  source_path: string,
+  source_name: string,
+  path: string
+): string {
+  let prefix = require("path").join(source_path, source_name);
+  // 对path进行trim去掉前面和source_path相同的部分
+  const trim_path = path.replace(prefix, "");
   if (path.endsWith(".gen")) {
     path = path.replace(".gen", ".rs");
-    // 对path进行trim去掉前面和source_path相同的部分
-    const trim_path = path.replace(source_path, "");
-    path = `${source_path}/src${trim_path}`;
+    return require("path").join(source_path, "tmp", "src", trim_path);
+  } else {
+    return require("path").join(source_path, "tmp", trim_path);
   }
-
-  return path;
 }
 
 /// 将路径中的.rs替换为.gen并将之前的src/去掉
@@ -45,7 +50,7 @@ export function ext_rust_script_str(document: string): string | null {
 }
 
 // 从本地将from_path下的所有文件复制到to_path中，from和to都是dir
-export function copy_file_local(to_path: string, from_path: string) {
+export function copy_dir_local(to_path: string, from_path: string) {
   try {
     // fs-extra 的 copySync 方法可以递归复制整个目录
     // 获得父目录
@@ -114,4 +119,9 @@ export async function download_from_github(
     console.error("下载过程中发生错误:", error);
     throw error;
   }
+}
+
+/// 将一个文件从from复制到to
+export function copy_file(from: string, to: string) {
+  workspace.fs.copy(Uri.file(from), Uri.file(to));
 }

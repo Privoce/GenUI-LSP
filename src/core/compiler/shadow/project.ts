@@ -1,9 +1,15 @@
-import { existsSync, readFile, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 import * as path from "path";
-import { FileSystemWatcher, workspace, WorkspaceFolder } from "vscode";
+import { FileSystemWatcher, Uri, workspace, WorkspaceFolder } from "vscode";
 import { GenUIToml, Ract } from "../ract";
 import { get_compile_source } from "../before";
-import { copy_file_local, download_from_github, remove_tmp } from "../utils";
+import {
+  copy_dir_local,
+  copy_file,
+  download_from_github,
+  fmt_path,
+  remove_tmp,
+} from "../utils";
 
 let toml_strify: any;
 (async () => {
@@ -127,19 +133,60 @@ export class GenUIWorkspace {
 
   /// 同步shadow项目，用于初始化时进行大范围同步
   private async sync_all_to_shadow() {
+    // 同步所有rust脚本
+    await this.sync_all_rust_gen();
+    // 同步gen_ui.toml文件并处理依赖
     let dependencies = await this.sync_gen_ui_toml();
     // 同步Cargo.toml文件除了名字之外的所有内容并添加依赖
+    await this.update_cargo_toml_and_sync(dependencies);
+  }
+
+  /// 同步所有rust脚本
+  private async sync_all_rust_gen() {
+    // 递归读取源项目下所有后缀为.gen的文件和.rs文件
+    let gen_file_paths = workspace.findFiles(`${this.source_name()}/**/*.gen`);
+    let rs_file_paths = workspace.findFiles(`${this.source_name()}/**/*.rs`);
+    // 同步所有.gen文件
+    console.log(gen_file_paths);
+    // 同步所有.rs文件
+    rs_file_paths.then((paths) => {
+      paths.forEach((uri) => {
+        this.sync_rs_file(uri.path);
+      });
+    });
+  }
+  /// 同步单个.gen文件
+  private async sync_gen_file() {}
+
+  /// 同步单个.rs文件
+  /// 对于.rs文件，需要将其内容提取出来并写入到shadow项目中（path无需修改）
+  private sync_rs_file(path: string) {
+    let shadow_path = fmt_path(this.workspace_path, this.source_name(), path);
+    workspace.fs.copy(Uri.file(path), Uri.file(shadow_path), {overwrite: true});
+  }
+
+  public source_name(): string {
+    return this.ract!.members[0].source;
+  }
+
+  /// 更新了source这边的Cargo.toml文件，需要同步到shadow项目中
+  private async update_cargo_toml_and_sync(dependencies?: Object) {
     let cargo_toml_path = path.join(this.source_path!, "Cargo.toml");
-    let cargo_toml_content = readFileSync(cargo_toml_path, "utf-8");
+    let cargo_toml_content = await require("fs-extra").readFile(
+      cargo_toml_path,
+      "utf-8"
+    );
     let cargo_toml_obj = require("toml").parse(cargo_toml_content);
     cargo_toml_obj.package.name = "tmp";
-    cargo_toml_obj.dependencies = Object.assign(
-      cargo_toml_obj.dependencies,
-      dependencies
-    );
+    if (dependencies) {
+      cargo_toml_obj.dependencies = Object.assign(
+        cargo_toml_obj.dependencies,
+        dependencies
+      );
+    }
     let cargo_toml_str = toml_strify(cargo_toml_obj);
     let shadow_cargo_toml_path = path.join(this.shadow_path!, "Cargo.toml");
-    writeFileSync(shadow_cargo_toml_path, cargo_toml_str);
+    await require("fs-extra").writeFile(shadow_cargo_toml_path, cargo_toml_str);
   }
 
   private async sync_gen_ui_toml(): Promise<Object> {
@@ -168,13 +215,10 @@ export class GenUIWorkspace {
       let token_obj = require("toml").parse(token_content);
 
       if (token_obj.plugin.repo.git !== undefined) {
-        await download_from_github(
-          this.shadow_path!,
-          key
-        );
+        await download_from_github(this.shadow_path!, key);
       } else {
         await Promise.resolve(
-          copy_file_local(this.shadow_path!, token_obj.plugin.repo)
+          copy_dir_local(this.shadow_path!, token_obj.plugin.repo)
         );
       }
     });
